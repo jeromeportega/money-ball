@@ -8,7 +8,20 @@ module.exports = (app) => {
         res.send(loans);
     });
 
-    app.post('/loans/create', requireLogin, (req, res) => {
+    app.post('/loans/create', requireLogin, async (req, res) => {
+        const { balance, payment, interestRate, paymentsLeft } = req.body;
 
+        const loan = new Loan({
+            balance,
+            payment,
+            interestRate,
+            paymentsLeft,
+            date_created: Date.now()
+            _user: req.user.id
+        });
+
+        await loan.save();
+
+        return res.send({ message: 'Your loan was successfully added!' });
     });
 }
