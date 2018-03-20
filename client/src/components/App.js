@@ -4,28 +4,32 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import CssBaseline from 'material-ui/CssBaseline';
+import Header from './Header';
+import Dashboard from './Dashboard';
 
-const Header = () => <p>Header</p>;
 const Landing = () => <h1>Landing</h1>;
-const Dashboard = () => <h1>Dashboard</h1>;
 const AddLoan = () => <h1>Add Loan</h1>;
 
 class App extends Component {
-  render() {
-    return (
-      <div>
-        <CssBaseline />
-        <BrowserRouter>
+    componentDidMount() {
+        this.props.fetchUser();
+    }
+
+    render() {
+        return (
             <div>
-                <Header />
-                <Route exact path="/" component={Landing} />
-                <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/addloan" component={AddLoan} />
+                <CssBaseline />
+                <BrowserRouter>
+                    <div>
+                        <Header />
+                        <Route exact path="/" component={Landing} />
+                        <Route exact path="/dashboard" component={Dashboard} />
+                        <Route exact path="/addloan" component={AddLoan} />
+                    </div>
+                </BrowserRouter>
             </div>
-        </BrowserRouter>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default connect(null, actions)(App);
