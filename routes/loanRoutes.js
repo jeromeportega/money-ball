@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Loan = mongoose.model('loans');
+const requireLogin = require('../middlewares/requireLogin');
 
 module.exports = (app) => {
     app.get('/api/loans', requireLogin, async (req, res) => {
@@ -8,15 +9,18 @@ module.exports = (app) => {
         res.send(loans);
     });
 
-    app.post('/api/loans/create', requireLogin, async (req, res) => {
-        const { balance, payment, interestRate, paymentsLeft } = req.body;
+    app.post('/api/createLoan', requireLogin, async (req, res) => {
+        const { name, balance, payment, interestRate, paymentsLeft, paymentDate } = req.body;
 
         const loan = new Loan({
+            name,
             balance,
             payment,
             interestRate,
             paymentsLeft,
-            date_created: Date.now()
+            paymentDate,
+            date_created: Date.now(),
+            date_updated: Date.now(),
             _user: req.user.id
         });
 

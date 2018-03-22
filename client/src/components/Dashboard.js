@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import { Redirect } from 'react-router-dom';
 import Grid from 'material-ui/Grid';
@@ -15,6 +16,10 @@ class Dashboard extends Component {
         showCreateLoanDialog: false
     }
 
+    componentDidMount() {
+        this.props.fetchLoans();
+    }
+
     openCreateLoanDialog = () => {
         this.setState({ showCreateLoanDialog: true });
     }
@@ -25,11 +30,11 @@ class Dashboard extends Component {
 
     renderContent() {
         const gridItems = [];
-        for (let i = 0; i < this.props.loans.length; i++) {
-            if (i % 2 === 0) gridItems.push(<Hidden key={i-1000} smDown={true}><Grid item md={1} lg={2} xl={3}></Grid></Hidden>);
-            else gridItems.push(<Grid key={i} item xs={12} sm={6} md={5} lg={4} xl={3}><Loan /></Grid>);
+        const { loans } = this.props;
+        for (let i = 0; i < loans.length; i++) {
+            if (i % 2 === 0) gridItems.push(<Hidden key={i+1*1000} smDown={true}><Grid item md={1} lg={2} xl={3}></Grid></Hidden>);
+            gridItems.push(<Grid key={i} item xs={12} sm={6} md={5} lg={4} xl={3}><Loan loan={loans[i]} /></Grid>);
         }
-
         return gridItems;
     }
 
@@ -64,4 +69,4 @@ function mapStateToProps({ auth, loans }) {
     return { auth, loans };
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, actions)(Dashboard);

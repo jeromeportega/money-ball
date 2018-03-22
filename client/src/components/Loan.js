@@ -11,7 +11,7 @@ const Loan = (props) => {
                 action={
                     <Icon>more_vert_icon</Icon>
                 }
-                title="Whatever"
+                title={props.loan.name}
                 subheader="Some Date"
             />
             <CardContent>
@@ -19,7 +19,7 @@ const Loan = (props) => {
                     <CountUp
                         className="account-balance"
                         start={0}
-                        end={1605.26}
+                        end={props.loan.balance}
                         useEasing={true}
                         separator=","
                         decimal="."
