@@ -28,13 +28,26 @@ class Dashboard extends Component {
         this.setState({ showCreateLoanDialog: false });
     }
 
+    renderGrid(block, i) {
+        return (
+            <Grid key={i} container justify="center" spacing={8}>
+                {block}
+            </Grid>
+        )
+    }
+
     renderContent() {
-        const gridItems = [];
+        let blocks = [], grids = [];
         const { loans } = this.props;
-        for (let i = 0; i < loans.length; i++) {
-            gridItems.push(<Grid key={i} item xs={12} sm={6} md={5} lg={4} xl={3}><Loan loan={loans[i]} /></Grid>);
-        }
-        return gridItems;
+        loans.forEach((loan, i) => {
+            blocks.push(<Grid key={loan.id} item xs={12} sm={6} md={5} lg={5} xl={4}><Loan loan={loan} /></Grid>);
+            if (blocks.length >= 2 || ((i === loans.length - 1) && (i % 2 === 0))) {
+                const newGrid = this.renderGrid(blocks, i);
+                grids.push(newGrid);
+                blocks = [];
+            }
+        })
+        return grids;
     }
 
     render() {
@@ -43,13 +56,7 @@ class Dashboard extends Component {
 
         return (
             <div>
-                <Grid container>
-                    <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
-                        <Grid container spacing={8}>
-                            {this.renderContent()}
-                        </Grid>
-                    </Grid>
-                </Grid>
+                {!!this.props.loans && this.props.loans.length > 0 && this.renderContent()}
                 <Button
                     variant="fab"
                     color="primary"
