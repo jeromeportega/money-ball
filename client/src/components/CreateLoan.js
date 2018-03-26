@@ -81,6 +81,7 @@ class CreateLoan extends Component {
         values.paymentsLeft = numberOfPayments(values.balance, values.interestRate, values.payment);
 
         this.props.submitLoan(values);
+        this.props.fetchLoans();
         this.props.handleClose();
     }
 

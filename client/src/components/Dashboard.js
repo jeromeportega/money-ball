@@ -32,7 +32,6 @@ class Dashboard extends Component {
         const gridItems = [];
         const { loans } = this.props;
         for (let i = 0; i < loans.length; i++) {
-            if (i % 2 === 0) gridItems.push(<Hidden key={i+1*1000} smDown={true}><Grid item md={1} lg={2} xl={3}></Grid></Hidden>);
             gridItems.push(<Grid key={i} item xs={12} sm={6} md={5} lg={4} xl={3}><Loan loan={loans[i]} /></Grid>);
         }
         return gridItems;
@@ -44,8 +43,12 @@ class Dashboard extends Component {
 
         return (
             <div>
-                <Grid container spacing={8}>
-                    {this.renderContent()}
+                <Grid container>
+                    <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
+                        <Grid container spacing={8}>
+                            {this.renderContent()}
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Button
                     variant="fab"
