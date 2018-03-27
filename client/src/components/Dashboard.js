@@ -51,7 +51,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        if (this.props.auth === false) return <Redirect to="/" />
+        if (this.props.auth === false) return <Redirect to="/" />;
         const { showCreateLoanDialog } = this.state;
 
         return (

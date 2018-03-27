@@ -5,9 +5,9 @@ import * as actions from '../actions';
 
 import CssBaseline from 'material-ui/CssBaseline';
 import Header from './Header';
+import Landing from './Landing';
 import Dashboard from './Dashboard';
 
-const Landing = () => <h1>Landing</h1>;
 const AddLoan = () => <h1>Add Loan</h1>;
 
 class App extends Component {
