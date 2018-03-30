@@ -9,11 +9,13 @@ module.exports = (app) => {
         res.send(loans);
     });
 
-    app.post('/api/createLoan', requireLogin, async (req, res) => {
-        const { name, balance, payment, interestRate, paymentsLeft, paymentDate } = req.body;
+    // TODO: Include Validation middleware to validate the incoming create loan payload fields
+    app.post('/api/loans', requireLogin, async (req, res) => {
+        const { name, loanName, balance, payment, interestRate, paymentsLeft, paymentDate } = req.body;
 
         const loan = new Loan({
             name,
+            loanName,
             balance,
             payment,
             interestRate,
@@ -27,5 +29,11 @@ module.exports = (app) => {
         await loan.save();
 
         return res.send({ message: 'Your loan was successfully added!' });
+    });
+
+    app.post('/api/deleteLoan', requireLogin, async (req, res) => {
+        await Loan.findByIdAndRemove(req.body.id);
+
+        return res.send({ message: 'Your loan was successfully deleted!' });
     });
 }

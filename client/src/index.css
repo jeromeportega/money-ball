@@ -1,3 +1,7 @@
 .account-balance {
     font-size: 50px;
 }
+
+.pointer {
+    cursor: pointer;
+}

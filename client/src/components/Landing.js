@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-dom';
 
 class Landing extends Component {
     render() {
-        if (this.props.auth === true) return <Redirect to="/dashboard" />;
+        console.log(this.props.auth);
+        if (this.props.auth) return <Redirect to="/dashboard" />;
 
         return (
             <div>Landing</div>

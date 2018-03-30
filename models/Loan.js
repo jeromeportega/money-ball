@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const LoanSchema = new Schema({
-    name: { type: String, required: [true, 'Please provide a name for this loan.'] },
+    name: { type: String, required: [true, 'Please provide a name for the bank this loan belongs to.'] },
+    loanName: { type: String, required: [true, 'Please provide the name for this loan.'] },
     balance: { type: Number, required: [true, 'Please provide the current remaining balance on the loan.'] },
     payment: { type: Number, required: [true, 'Please provide your monthly payment.'] },
     interestRate: { type: Number, required: [true, 'Please provide the interest rate on the loan as a percentage.'] },

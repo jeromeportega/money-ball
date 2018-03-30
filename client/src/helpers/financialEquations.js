@@ -4,3 +4,9 @@ export const numberOfPayments = (amount, interestRate, payment) => {
     let paymentsLeft = Math.ceil((-1*Math.log(1-(amount*interestRate)/payment))/Math.log(1+interestRate));
     return paymentsLeft;
 }
+
+export const validLoan = (amount, interestRate, payment) => {
+    let calculation = 1-(amount*interestRate/payment);
+    console.log(calculation);
+    return calculation;
+}
